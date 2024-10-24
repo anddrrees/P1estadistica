@@ -73,11 +73,6 @@ pie(tabla.NP, main = "Diagrama de Sectores de la variable Número.de.programador
 barplot(tabla.TP, xlab = "Tipo.de.proyecto", ylab = "Frecuencias Absolutas", main = "Diagrama de Barras")
 pie(tabla.TP, main = "Diagrama de Sectores de la variable Tipo.de.proyecto")
 
-barplot(tabla.Tiempo, xlab = "Tiempo", ylab = "Frecuencias Absolutas", main = "Diagrama de Barras")
-pie(tabla.Tiempo, main = "Diagrama de Sectores de la variable Tiempo")
-
-barplot(tabla.Ingresos, xlab = "Ingresos", ylab = "Frecuencias Absolutas", main = "Diagrama de Barras")
-pie(tabla.Ingresos, main = "Diagrama de Sectores de la variable Ingresos")
 
  #histograma tabla.Tiempo
 
@@ -112,5 +107,61 @@ summary(tiempo)
 summary(Ingresos)
 summary(empresa$Número.de.programadores)
   #4 analisis variable tiempo
+
+
+
+
+  #6 Relación bivariante entre 'tiempo' y 'Ingresos'.
+ # Creación de histogramas para 'tiempo' y 'Ingresos'.
+par(mfrow = c(1, 2))
+hist(tiempo)
+hist(Ingresos)
+par(mfrow = c(1, 1))
+ # Medidas descriptivas para 'tiempo' y 'Ingresos'.
+TieIng = data.frame(tiempo,Ingresos)
+summary(TieIng)
+ # grafica  para 'tiempo' y 'Ingresos'.
+plot(tiempo,Ingresos)
+cor(tiempo, Ingresos)
+reg <- lm(Ingresos ~ tiempo)
+summary(reg)
+plot(tiempo, Ingresos, xlab = "Tiempo", ylab = "Ingresos", col = "blue")
+abline(reg, col = "blue")
+
+
+  #7
+ # Medidas descriptivas para 'Tipo de proyecto' , 'tiempo' y 'Ingresos'.
+Tipo.de.proyecto <-empresa$Tipo.de.proyecto
+data = data.frame(Tipo.de.proyecto,tiempo,Ingresos)
+summary(data)
+ # Medidas descriptivas dividida en  'Tipo de proyecto' para 'tiempo' y 'Ingresos'.
+# Filtramos datos .
+listaC <- data[data$Tipo.de.proyecto == "Comercio Eléctrónico", ]
+listaP <- data[data$Tipo.de.proyecto == "Página web", ]
+# Resumen estadístico .
+summary(listaC)
+summary(listaP)
+ # grafica dividida en  'Tipo de proyecto' para 'tiempo' y 'Ingresos'.
+# Gráfico de dispersión .
+plot(listaC$tiempo, listaC$Ingresos, xlab = "tiempo", ylab = "Ingresos", col = "blue")
+points(listaP$tiempo, listaP$Ingresos, col = "red")
+# Calculamos la correlación .
+cor(listaC$tiempo, listaC$Ingresos)
+cor(listaP$tiempo, listaP$Ingresos)
+
+# Realizamos una regresión lineal.
+reg.C <- lm(Ingresos ~ tiempo, data = listaC)
+summary(reg.c)
+reg.p <- lm(Ingresos ~ tiempo, data = listaP)
+summary(reg.p)
+# Gráfico de dispersión con líneas de regresión 
+plot(listaC$tiempo, listaC$Ingresos, xlab = "tiempo", ylab = "ingreso", col = "blue")
+points(listaP$tiempo, listaP$Ingresos, col = "red")
+abline(reg.C, col = "blue")
+abline(reg.p, col = "red")
+
+
+
+
 
 
