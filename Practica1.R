@@ -111,7 +111,41 @@ quantile(empresa$Número.de.programadores, probs = c(0.25, 0.75))
 summary(tiempo)
 summary(Ingresos)
 summary(empresa$Número.de.programadores)
-  #4 analisis variable tiempo
+
+#4 --ANALISIS VARIABLE TIEMPO
+# Ajustar un modelo lineal
+modelo <- lm(tiempo ~ Número.de.programadores + Tipo.de.proyecto, data = empresa)
+# Resumen del modelo
+summary(modelo)
+library(ggplot2)
+
+# Gráfico scatter plot para tiempo y número de programadores según tipo de proyecto
+# Boxplot para Tiempo según Tipo de proyecto y Número de programadores
+
+ggplot(empresa, aes(x = factor(Número.de.programadores), y = Tiempo, fill = Tipo.de.proyecto)) +
+
+  geom_boxplot() +
+
+  labs(title = "Distribución del Tiempo según Número de Programadores y Tipo de Proyecto",
+
+       x = "Número de Programadores",
+
+       y = "Tiempo (días)") +
+
+  theme_minimal()
+#La variable tiempo es depende del nº de programadores, 
+#pues se ve como, independiente del tipo de proyecto, 
+#el tiempo en realizar el proyecto crece a medida que
+#aumenta el nº de programadores involucrados. 
+#La variable tiempo tambien es dependiente del tipo de 
+#proyecto involucrado, pues se ve como, independientemente
+#del nº de programadores, la dispersion de los datos de un mismo 
+#proyecto son practicamente iguales, y lo unico que varia (de manera significativa)
+#de ambas rectas de regresion es el intercepto. Tambien se ve como de media
+#se tarda mas en realizar un proyecto de pagina web que de 
+#comercio electronico, y como los datos de comercio electronico 
+#resultan estar mas dispersos  y presentar menos datos atipicos 
+#que los de pagina web.
 
 #APARTADO 5: ANÁLISIS DE LA VARIABLE INGRESOS
 #COMPARACION INGRESOS / TIPO DE PROYECTO
