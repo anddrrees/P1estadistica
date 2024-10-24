@@ -113,6 +113,24 @@ summary(Ingresos)
 summary(empresa$Número.de.programadores)
   #4 analisis variable tiempo
 
+#APARTADO 5: ANÁLISIS DE LA VARIABLE INGRESOS
+#COMPARACION INGRESOS / TIPO DE PROYECTO
+tabla.IngresosProyecto <- table(empresa$Tipo.de.proyecto,intervalosIngresos)
+tabla.IngresosProyecto
+prop.table(tabla.IngresosProyecto)
+barplot(ylab="FRECUENCIAS ABSOLUTAS",main="INGRESOS POR TIPO DE PROYECTO",beside=TRUE,hor=FALSE,tabla.IngresosProyecto,xlab=c("INTERVALOS DE INGRESOS"),space=c(0,1),col = c("pink","purple"),legend.text =c("Com Electrónico.","Pág. Web"))
+
+#COMPARACION TIEMPO / NÚMERO DE PROGRAMADORES
+tabla.IngresosNProgramadores <- table(empresa$Número.de.programadores,intervalosIngresos)
+tabla.IngresosNProgramadores
+plot.new()
+barplot(ylab="FRECUENCIAS ABSOLUTAS",main="INGRESOS POR NÚMERO DE PROGRAMADORES",hor=FALSE,tabla.IngresosNProgramadores,width=c(1),height=c(tabla.IngresosNProgramadores),beside=TRUE,xlab=c("INTERVALOS DE INGRESOS"),space=c(2.5,0,0,0,0),col = c("purple","lightblue","lightgreen","lightyellow","brown"),legend.text =c("3 Programadores","4 Programadores","5 Programadores","6 Programadores","7 Programadores"))
+plot(empresa$Ingresos,empresa$Número.de.programadores,main="Diagrama de Dispersión de Ingresos y Número de Programadores") #Tienen una correlacion menor pero aun positiva.
+cor(empresa$Número.de.programadores,empresa$Ingresos) #Correlacion entre Número de Programadores y Tiempo
+reg.B <- lm(empresa$Número.de.programadores ~ empresa$Ingresos, data = empresa)
+summary(reg.B)
+abline(reg.B,col="red")
+
 
 
 
