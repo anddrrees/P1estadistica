@@ -57,7 +57,9 @@ d2 <- (max(Ingresos) - min(Ingresos)) / k2
 limites2 <- min(Ingresos) + c(0:k2) * d2
 
 # Creamos intervalos para la variable 'horas'.
-cortes2 <- cut(Ingresos, breaks = limites2, include.lowest = TRUE)
+etiquetas <- paste(format(limites2[-length(limites2)], scientific = FALSE), 
+                   format(limites2[-1], scientific = FALSE), sep = " - ")
+cortes2 <- cut(Ingresos, breaks = limites2,labels = etiquetas, include.lowest = TRUE)
 
 # Creamos una tabla de frecuencias para los intervalos.
 tabla.Ingresos <- table(cortes2)
